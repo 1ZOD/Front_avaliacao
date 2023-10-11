@@ -1,9 +1,14 @@
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 import Button from "../communs/button";
 
-const Nav_bar = () => {
+interface LayoutProps{
+  children: ReactNode;
+}
+
+export const Navbar = ({children}: LayoutProps) => {
   return (
+    <>
     <div className="top_nav">
         <h1>Power Habits</h1>
       <nav>
@@ -12,7 +17,8 @@ const Nav_bar = () => {
         <Button></Button>
       </nav>
     </div>
+    {children}
+    </>
   );
 };
-
-export default Nav_bar;
+;
