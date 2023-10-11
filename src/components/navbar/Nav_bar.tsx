@@ -1,14 +1,15 @@
 import Link from "next/link";
 import React from "react";
+import Button from "../communs/button";
 
 const Nav_bar = () => {
   return (
     <div className="top_nav">
-      <div className="image"></div>
+        <h1>Power Habits</h1>
       <nav>
-        <Link href="/">Home</Link>
-        <Link href="/tracking">Tracking my habits</Link>
-        <button>New Habit</button>
+        <Link href="/" className="text_link">Home</Link>
+        <Link href="/tracking"className="text_link">Tracking my habits</Link>
+        <Button></Button>
       </nav>
     </div>
   );
