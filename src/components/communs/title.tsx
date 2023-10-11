@@ -1,9 +1,12 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-const Title = () => {
+interface Props{
+  children: ReactNode;
+}
+
+export const Title = ({children}: Props) => {
   return (
-    <div className="">Contatos</div>
+    <div className="title">{children}</div>
   );
 };
-
-export default Title;
+;

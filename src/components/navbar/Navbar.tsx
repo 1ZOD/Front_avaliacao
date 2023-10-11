@@ -14,7 +14,7 @@ export const Navbar = ({children}: LayoutProps) => {
       <nav>
         <Link href="/" className="text_link">Home</Link>
         <Link href="/tracking"className="text_link">Tracking my habits</Link>
-        <Button></Button>
+        <Button><div>+ New Habit</div></Button>
       </nav>
     </div>
     {children}
