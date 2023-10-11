@@ -1,8 +1,12 @@
 import React from "react";
 
-const Button = () => {
+interface Props{
+  children: any;
+}
+
+export const Button = ({children}: Props) => {
   return (
-    <button className="button">+ New Habit</button>
+    <button className="button">{children}</button>
   );
 };
 

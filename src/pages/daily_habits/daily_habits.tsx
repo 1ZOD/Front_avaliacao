@@ -1,4 +1,4 @@
-import Nav_bar from "@/components/navbar/Nav_bar"
+import { Title } from "@/components/communs/title"
 import Head from "next/head"
 import Link from "next/link"
 
@@ -8,9 +8,10 @@ export default function Daily() {
     <Head>
         <title>Daily Habits</title>
     </Head>
-    <Nav_bar></Nav_bar>
     <div>
-        <h1> Contatos</h1>
+        <Title><span>Your daily habits</span></Title>
+
+        
         <Link href="/">Home</Link>
     </div>
     </>
