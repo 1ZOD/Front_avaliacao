@@ -1,24 +1,41 @@
-import React, { useState } from 'react';
-import { format, subDays, addDays, isToday, differenceInDays } from 'date-fns';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { format, subDays, addDays, differenceInDays } from 'date-fns';
+
+type Item = {
+  date: Date;
+  formattedDate: {
+    dd: string;
+    eee: string;
+    complete: string;
+  };
+};
 
 function MyComponent() {
-  const today = new Date();
   const numDays = 100;
   const itemsPerPage = 10;
   const daysBefore = 5;
 
-  const items = [];
-  for (let i = -daysBefore; i < numDays; i++) {
-    const day = addDays(today, i);
-    items.push({
-      date: day,
-      formattedDate: {
-        dd: format(day, 'dd'),
-        eee: format(day, 'eee'),
-        complete: format(day, 'dd MMMM yyyy'),
-      },
-    });
-  }
+  // Use useMemo para criar a variável today
+  const today = useMemo(() => new Date(), []);
+
+  // Use useMemo para criar o array items
+  const items: Item[] = useMemo(() => {
+    const itemsArray = [];
+
+    for (let i = -daysBefore; i < numDays; i++) {
+      const day = addDays(today, i);
+      itemsArray.push({
+        date: day,
+        formattedDate: {
+          dd: format(day, 'dd'),
+          eee: format(day, 'eee'),
+          complete: format(day, 'dd/MM/yyyy'),
+        },
+      });
+    }
+
+    return itemsArray;
+  }, [today, numDays, daysBefore]);
 
   const todayIndex = differenceInDays(today, items[0].date);
 
@@ -37,6 +54,16 @@ function MyComponent() {
   };
 
   const visibleItems = items.slice(activeIndex, activeIndex + itemsPerPage);
+
+  // Define a função sendToAPI usando useCallback
+  const sendToAPI = useCallback((selectedIndex: number) => {
+    // Substitua esta parte pelo código para enviar os dados para a API
+    console.log('Enviando para a API:', items[selectedIndex].formattedDate.complete);
+  }, [items]);
+
+  useEffect(() => {
+    sendToAPI(activeIndex);
+  }, [activeIndex, sendToAPI]);
 
   return (
     <div>
