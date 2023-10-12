@@ -3,20 +3,23 @@ import { format, subDays, addDays, isToday, differenceInDays } from 'date-fns';
 
 function MyComponent() {
   const today = new Date();
-  const numDays = 100; // Defina o número total de dias que você deseja exibir.
-  const itemsPerPage = 10; // Defina o número de itens a serem exibidos por página.
-  const daysBefore = 5; // Defina quantos dias antes do dia de hoje você deseja ver.
+  const numDays = 100;
+  const itemsPerPage = 10;
+  const daysBefore = 5;
 
   const items = [];
   for (let i = -daysBefore; i < numDays; i++) {
     const day = addDays(today, i);
     items.push({
       date: day,
-      formattedDate: format(day, 'dd EEE'),
+      formattedDate: {
+        dd: format(day, 'dd'),
+        eee: format(day, 'eee'),
+        complete: format(day, 'dd MMMM yyyy'),
+      },
     });
   }
 
-  // Calcule o índice do dia atual (hoje)
   const todayIndex = differenceInDays(today, items[0].date);
 
   const [activeIndex, setActiveIndex] = useState(todayIndex);
@@ -43,9 +46,11 @@ function MyComponent() {
         </button>
         <div className="carousel">
           {visibleItems.map((item, index) => (
-            <div key={index}className={`carousel-item ${index === 0 ? 'active' : ''}`}
-            >
-              {item.formattedDate}
+            <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+              <div>
+                <p>{item.formattedDate.eee}</p>
+                <p>{item.formattedDate.dd}</p>
+              </div>
             </div>
           ))}
         </div>
