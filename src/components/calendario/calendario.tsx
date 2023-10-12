@@ -4,7 +4,7 @@ import { format, subDays, addDays, isToday, differenceInDays } from 'date-fns';
 function MyComponent() {
   const today = new Date();
   const numDays = 100; // Defina o número total de dias que você deseja exibir.
-  const itemsPerPage = 6; // Defina o número de itens a serem exibidos por página.
+  const itemsPerPage = 10; // Defina o número de itens a serem exibidos por página.
   const daysBefore = 5; // Defina quantos dias antes do dia de hoje você deseja ver.
 
   const items = [];
@@ -38,19 +38,17 @@ function MyComponent() {
   return (
     <div>
       <div className="carousel-container">
+        <button id="prevButton" onClick={handlePrev}>
+          Anterior
+        </button>
         <div className="carousel">
           {visibleItems.map((item, index) => (
-            <div
-              key={index}
-              className={`carousel-item ${index === 0 ? 'active' : ''}`}
+            <div key={index}className={`carousel-item ${index === 0 ? 'active' : ''}`}
             >
               {item.formattedDate}
             </div>
           ))}
         </div>
-        <button id="prevButton" onClick={handlePrev}>
-          Anterior
-        </button>
         <button id="nextButton" onClick={handleNext}>
           Próximo
         </button>

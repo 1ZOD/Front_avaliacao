@@ -16,7 +16,7 @@ export default function Daily() {
 
         <MyCalendar/>
         
-        <Link href="/">Home</Link>
+        {/* <Link href="/">Home</Link> */}
       </div>
     </>
   );
