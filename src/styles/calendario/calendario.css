@@ -21,4 +21,5 @@
 
 .carousel-item.active {
     background-color: #7a42f1;
+    color: aliceblue;
 }
