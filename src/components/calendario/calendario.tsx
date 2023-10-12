@@ -10,15 +10,21 @@ type Item = {
   };
 };
 
+type ApiDataItem = {
+  id: number;
+  tarefa: string;
+  status: string;
+};
+
 function MyComponent() {
   const numDays = 100;
   const itemsPerPage = 10;
   const daysBefore = 5;
 
-  // Use useMemo para criar a variável today
+  const [apiData, setApiData] = useState<ApiDataItem[]>([]);
+
   const today = useMemo(() => new Date(), []);
 
-  // Use useMemo para criar o array items
   const items: Item[] = useMemo(() => {
     const itemsArray = [];
 
@@ -55,10 +61,25 @@ function MyComponent() {
 
   const visibleItems = items.slice(activeIndex, activeIndex + itemsPerPage);
 
-  // Define a função sendToAPI usando useCallback
-  const sendToAPI = useCallback((selectedIndex: number) => {
-    // Substitua esta parte pelo código para enviar os dados para a API
-    console.log('Enviando para a API:', items[selectedIndex].formattedDate.complete);
+  const sendToAPI = useCallback(async (selectedIndex: any) => {
+    try {
+      const response = await fetch('http://localhost:3001/dia', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dia: items[selectedIndex].formattedDate.complete }), // Valor vazio
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setApiData(data);
+      } else {
+        console.error('Erro ao chamar a API');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   }, [items]);
 
   useEffect(() => {
@@ -84,6 +105,14 @@ function MyComponent() {
         <button id="nextButton" onClick={handleNext}>
           Próximo
         </button>
+      </div>
+      <div className="api-data">
+        {apiData.map((item, index) => (
+          <div key={index}>
+            <p>Tarefa: {item.tarefa}</p>
+            <p>Status: {item.status}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
