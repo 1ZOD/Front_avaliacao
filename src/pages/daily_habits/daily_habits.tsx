@@ -10,13 +10,14 @@ export default function Daily() {
         <title>Daily Habits</title>
       </Head>
       <div>
-        <Title>
-          <span>Your daily habits</span>
-        </Title>
-
-        <MyCalendar/>
-        
-        {/* <Link href="/">Home</Link> */}
+        <div className="container-title">
+            <Title>
+            <span>Your daily habits</span>
+            </Title>
+        </div>
+        <div className="container-calendario">
+            <MyCalendar/>
+        </div>
       </div>
     </>
   );
