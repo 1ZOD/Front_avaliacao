@@ -1,0 +1,7 @@
+.carousel{
+    display: flex;
+}
+
+.carousel-item.active {
+    background-color: red; /* Defina a cor desejada para o item selecionado */
+  }

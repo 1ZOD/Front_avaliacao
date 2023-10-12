@@ -1,19 +1,23 @@
-import { Title } from "@/components/communs/title"
-import Head from "next/head"
-import Link from "next/link"
+import { Title } from "@/components/communs/title";
+import Head from "next/head";
+import Link from "next/link";
+import MyCalendar from "@/components/calendario/calendario";
 
 export default function Daily() {
-    return (
+  return (
     <>
-    <Head>
+      <Head>
         <title>Daily Habits</title>
-    </Head>
-    <div>
-        <Title><span>Your daily habits</span></Title>
+      </Head>
+      <div>
+        <Title>
+          <span>Your daily habits</span>
+        </Title>
 
+        <MyCalendar/>
         
         <Link href="/">Home</Link>
-    </div>
+      </div>
     </>
-    )
+  );
 }
