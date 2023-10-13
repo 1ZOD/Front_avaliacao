@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { format, subDays, addDays, differenceInDays } from 'date-fns';
+import { format, addDays, differenceInDays } from 'date-fns';
 
 type Item = {
   date: Date;
@@ -107,12 +107,16 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
-        {apiData.map((item, index) => (
-          <div key={index}>
-            <p>Tarefa: {item.tarefa}</p>
-            <p>Status: {item.status}</p>
-          </div>
-        ))}
+        <div className="container-cinza-habitos">
+          {apiData.map((item, index) => (
+            <div className="habito_item" key={index}>
+              <div>{item.tarefa}</div>
+              {/* <p>{item.status}</p> */}
+            </div>
+          ))}
+
+        </div>
+
       </div>
     </div>
   );
