@@ -13,8 +13,8 @@ export const Navbar = ({children}: LayoutProps) => {
         <h1>Power Habits</h1>
       <nav>
         <Link href="/" className="text_link">Home</Link>
-        <Link href="/tracking"className="text_link">Tracking my habits</Link>
-        <Button><div>+ New Habit</div></Button>
+        <Link href="/daily_habits/daily_habits"className="text_link">Tracking my habits</Link>
+        <Button><Link href="/new_habbit/new_habit">+ New Habit</Link></Button>
       </nav>
     </div>
     {children}

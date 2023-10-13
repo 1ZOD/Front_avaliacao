@@ -1,0 +1,15 @@
+.label_input{
+    font-weight: bold;
+    font-size: 1rem;
+    color: #586067;
+}
+
+.input_field{
+    display: flex;
+    border-radius: 3px;
+    height: 2.3rem;
+    border: none;
+    box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.1); /* Box shadow */
+    padding: 1rem;
+    outline: none;
+}
