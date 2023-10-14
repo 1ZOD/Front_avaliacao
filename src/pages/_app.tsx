@@ -5,6 +5,7 @@ import '@/styles/components/title/title.css';
 import '@/styles/components/input/input.css';
 import '@/styles/components/dropdown/dropdown.css';
 import '@/styles/components/date/date.css';
+import '@/styles/components/time/time.css';
 import '@/styles/components/calendario/calendario.css';
 import '@/styles/pages/daily_habits.css'
 import '@/styles/pages/new_habbits.css'

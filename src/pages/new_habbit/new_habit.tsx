@@ -4,6 +4,7 @@ import { Title } from "@/components/communs/title";
 import { Date } from "@/components/communs/date";
 import Head from "next/head";
 import Link from "next/link";
+import { Time } from "@/components/communs/time";
 
 export default function New_habbit() {
 
@@ -29,9 +30,7 @@ export default function New_habbit() {
                 
                 <Date label={"Date"} placeholder={"dd/mm/yyyy"} placeholder2={"End Time"}/>
 
-                <label htmlFor="date">Date</label>
-                <input type="text" id="habitName" name="habitName"/>
-                <input type="text" id="habitName" name="habitName"/>
+                <Time label={"Hour"} placeholder={"hh:mm"} placeholder2={"End Time"}/>
                 
 
                 <Dropdown label={"Repeat"} options={["During a Week","During a Day","Never"]}/>
