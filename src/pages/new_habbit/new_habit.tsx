@@ -1,3 +1,4 @@
+import { Dropdown } from "@/components/communs/dropdown";
 import { Input } from "@/components/communs/input";
 import { Title } from "@/components/communs/title";
 import Head from "next/head";
@@ -37,8 +38,7 @@ export default function New_habbit() {
                 <label htmlFor="repeat">Repeat</label>
                 <input type="text" id="habitName" name="habitName"/>
               
-                <label htmlFor="notification">Notification</label>
-                <input type="text" id="habitName" name="habitName"/>
+                <Dropdown label={"Notification"}/>
 
 
               </div>
