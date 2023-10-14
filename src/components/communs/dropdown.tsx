@@ -2,14 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 
 interface Props {
   label: any;
+  options: string[];
 }
 
-export const Dropdown = ({ label }: Props) => {
+export const Dropdown = ({ label, options }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("No");
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  const options = ["Yes","No"];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);

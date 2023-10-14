@@ -34,11 +34,9 @@ export default function New_habbit() {
                 <input type="text" id="habitName" name="habitName"/>
                 <input type="text" id="habitName" name="habitName"/>
 
-                
-                <label htmlFor="repeat">Repeat</label>
-                <input type="text" id="habitName" name="habitName"/>
+                <Dropdown label={"Repeat"} options={["During a Week","During a Day","Never"]}/>
               
-                <Dropdown label={"Notification"}/>
+                <Dropdown label={"Notification"} options={["Yes","No"]}/>
 
 
               </div>
