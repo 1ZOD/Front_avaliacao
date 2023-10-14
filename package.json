@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/date-fns": "^2.6.0",
     "date-fns": "^2.30.0",
     "font-awesome": "^4.7.0",
@@ -16,7 +18,8 @@
     "next": "13.5.4",
     "react": "^18",
     "react-calendar": "^4.6.0",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
     "@types/inputmask": "^5.0.4",

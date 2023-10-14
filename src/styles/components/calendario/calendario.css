@@ -56,3 +56,9 @@
     color: #007bff; /* Cor do ícone de seleção */
   }
   
+.button_arrow{
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+}

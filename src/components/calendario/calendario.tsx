@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { format, addDays, differenceInDays } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 
 type Item = {
   date: Date;
@@ -89,8 +93,8 @@ function MyComponent() {
   return (
     <div>
       <div className="carousel-container">
-        <button id="prevButton" onClick={handlePrev}>
-          Anterior
+        <button className="button_arrow" id="prevButton" onClick={handlePrev}>
+          <FontAwesomeIcon icon={faChevronLeft} size="2xl" style={{ color: '#c1c9d7' }} />
         </button>
         <div className="carousel">
           {visibleItems.map((item, index) => (
@@ -102,8 +106,8 @@ function MyComponent() {
             </div>
           ))}
         </div>
-        <button id="nextButton" onClick={handleNext}>
-          Próximo
+        <button className="button_arrow" id="nextButton" onClick={handleNext}>
+          <FontAwesomeIcon icon={faChevronRight} size="2xl" style={{ color: '#c1c9d7' }} />
         </button>
       </div>
       <div className="api-data">

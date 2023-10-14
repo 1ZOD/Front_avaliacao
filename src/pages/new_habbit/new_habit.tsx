@@ -5,6 +5,7 @@ import { Date } from "@/components/communs/date";
 import Head from "next/head";
 import Link from "next/link";
 import { Time } from "@/components/communs/time";
+import IconField from "@/components/communs/icons";
 
 export default function New_habbit() {
 
@@ -25,8 +26,7 @@ export default function New_habbit() {
                 
                 <Input label={"Description"} placehloder={"Put a description here"}/>
                                 
-                <label htmlFor="icon">Habbit icons</label>
-                <input type="text" id="habitName" name="habitName"/>
+                <IconField/>
                 
                 <Date label={"Date"} placeholder={"dd/mm/yyyy"} placeholder2={"End Time"}/>
 
