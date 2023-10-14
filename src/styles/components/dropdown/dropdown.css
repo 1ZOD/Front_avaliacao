@@ -1,6 +1,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  
 }
 
 .dropdown-toggle {
@@ -13,17 +14,21 @@
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
+  margin-top: 0.2rem;
+  margin-left: 0.2rem;
+  color: #586067;
 }
 
 .arrow {
   margin-left: 8px;
-  margin-right: 8px; /* Adicione margem à direita do texto */
+  margin-right: 8px;
+  
 }
 
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 0.2rem;
   list-style: none;
   padding: 10px;
   margin: 0;
