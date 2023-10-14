@@ -1,22 +1,48 @@
+import { Dropdown } from "@/components/communs/dropdown";
+import { Input } from "@/components/communs/input";
 import { Title } from "@/components/communs/title";
+import { Date } from "@/components/communs/date";
 import Head from "next/head";
 import Link from "next/link";
-import MyCalendar from "@/components/calendario/calendario";
+import { Time } from "@/components/communs/time";
+import IconField from "@/components/communs/icons";
 
 export default function New_habbit() {
+
+
+  
   return (
     <>
       <Head>
         <title>Daily Habits</title>
       </Head>
-      <div>
-        <div className="container-title">
-            <Title>
-            <span>Your daily habits</span>
-            </Title>
-        </div>
-        <div className="container-calendario">
-            <MyCalendar/>
+      <div className="main-container">
+        <div className="content-container">
+          <Title>New Habbit</Title>
+          <div>
+            <form>
+              <div className="form-container">
+                <Input label={"Name"} placehloder={"Put a habbit name here"}/>
+                
+                <Input label={"Description"} placehloder={"Put a description here"}/>
+                                
+                <IconField/>
+                
+                <Date label={"Date"} placeholder={"dd/mm/yyyy"} placeholder2={"End Time"}/>
+
+                <Time label={"Hour"} placeholder={"hh:mm"} placeholder2={"End Time"}/>
+                
+
+                <Dropdown label={"Repeat"} options={["During a Week","During a Day","Never"]}/>
+              
+                <Dropdown label={"Notification"} options={["Yes","No"]}/>
+
+
+              </div>
+              <button type="submit"> X Cancel</button>
+              <button type="submit">Save</button>
+            </form>
+          </div>
         </div>
       </div>
     </>
