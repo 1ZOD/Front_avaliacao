@@ -6,6 +6,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { Time } from "@/components/communs/time";
 import IconField from "@/components/communs/icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function New_habbit() {
 
@@ -37,10 +39,14 @@ export default function New_habbit() {
               
                 <Dropdown label={"Notification"} options={["Yes","No"]}/>
 
-
+                <div className="container_button">
+                    <button className="cancel_button" type="submit"> X Cancel</button>
+                    <button className="submit_button" type="submit">
+                      <FontAwesomeIcon icon={faCheck} size="sm" style={{ color: '#000000' }}/>
+                      Save
+                      </button>
+                </div>
               </div>
-              <button type="submit"> X Cancel</button>
-              <button type="submit">Save</button>
             </form>
           </div>
         </div>

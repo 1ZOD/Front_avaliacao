@@ -11,10 +11,8 @@ export const Time = ({ label, placeholder, placeholder2 }: Props) => {
   const inputRef2 = useRef<HTMLInputElement | null>(null);
 
   const formatTime = (inputValue: string) => {
-    // Remove caracteres não numéricos
     const cleanedValue = inputValue.replace(/\D/g, "");
     
-    // Adicione os dois pontos entre as horas e minutos
     if (cleanedValue.length > 2) {
       return `${cleanedValue.slice(0, 2)}:${cleanedValue.slice(2, 4)}`;
     } else {

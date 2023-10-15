@@ -5,18 +5,19 @@
 }
 
 .dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
   padding: 10px;
   background-color: #ffffff;
   width: 50rem;
-  border: 1px solid #ccc;
+  border: none;
   height: 2.3rem;
   border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.2rem;
+  margin-top: 0.4rem;
   margin-left: 0.2rem;
   color: #586067;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.055);
 }
 
 .arrow {

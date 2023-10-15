@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   label: any;
@@ -33,11 +36,15 @@ export const Dropdown = ({ label, options }: Props) => {
   }, []);
 
   return (
-    <>
+    <div>
       <label className="label_input">{label}</label>
       <div className="dropdown" ref={dropdownRef}>
         <button type="button" className="dropdown-toggle" onClick={toggleDropdown}>
-          {selectedOption} <div> {isOpen ? "▲" : "▼"}</div>
+          {selectedOption} 
+          <div> 
+            {isOpen ? <FontAwesomeIcon icon={faChevronUp} size="sm" style={{ color: '#cac4d0' }} /> : 
+            <FontAwesomeIcon icon={faChevronDown} size="sm" style={{ color: '#cac4d0' }} />}
+            </div>
         </button>
         {isOpen && (
           <ul className="dropdown-menu">
@@ -49,6 +56,6 @@ export const Dropdown = ({ label, options }: Props) => {
           </ul>
         )}
       </div>
-    </>
+    </div>
   );
 };

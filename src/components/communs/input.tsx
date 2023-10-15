@@ -7,9 +7,9 @@ interface Props {
 
 export const Input = ({ label,placehloder }: Props) => {
   return (
-    <>
+    <div>
       <label className="label_input">{label}</label>
       <input className="input_field" placeholder={placehloder}></input>
-    </>
+    </div>
   );
 };
