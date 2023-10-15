@@ -3,6 +3,8 @@ import { format, addDays, differenceInDays } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
 
 
 type Item = {
@@ -16,8 +18,10 @@ type Item = {
 
 type ApiDataItem = {
   id: number;
-  tarefa: string;
-  status: string;
+  nome_tarefa: string;
+  descricao: string;
+  iconeBase64: string;
+  hora_inicio: string;
 };
 
 function MyComponent() {
@@ -72,7 +76,7 @@ function MyComponent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ dia: items[selectedIndex].formattedDate.complete }), // Valor vazio
+        body: JSON.stringify({ data_inicio: items[selectedIndex].formattedDate.complete }),
       });
 
       if (response.ok) {
@@ -111,17 +115,33 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
-        <div className="container-cinza-habitos">
-          {apiData.map((item, index) => (
-            <div className="habito_item" key={index}>
-              <div>{item.tarefa}</div>
-              {/* <p>{item.status}</p> */}
+      <div className="container-cinza-habitos">
+        {apiData.map((item, index) => (
+          <div className="habito_item" key={index}>
+            <div className='container-itens'>
+              <Image
+                className='icon'
+                src={`data:image/png;base64, ${item.iconeBase64}`}
+                alt="Ícone"
+                width="25"
+                height="25"
+              />
+              <div className='text-container'>
+                <p className='title-item'>{item.nome_tarefa}</p>
+                <p className='sub-title-item'>{item.descricao}</p>
+              </div>
+              <div className='edit-container'>
+                <FontAwesomeIcon icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
+                <p className='horario-item'>{item.hora_inicio}</p>
+              </div>
+              <div>
+                <input className="checkbox" type="checkbox"/>
+              </div>
             </div>
-          ))}
-
-        </div>
-
-      </div>
+          </div>
+    ))}
+  </div>
+</div>
     </div>
   );
 }
