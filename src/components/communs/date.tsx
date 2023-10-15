@@ -4,9 +4,25 @@ interface Props {
   label: string;
   placeholder: string;
   placeholder2: string;
+  name1: string;
+  value1: string;
+  onChange1: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name2: string;
+  value2: string;
+  onChange2: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Date = ({ label, placeholder, placeholder2 }: Props) => {
+export const Date = ({
+  label,
+  placeholder,
+  placeholder2,
+  name1,
+  value1,
+  onChange1,
+  name2,
+  value2,
+  onChange2,
+}: Props) => {
   const inputRef1 = useRef<HTMLInputElement | null>(null);
   const inputRef2 = useRef<HTMLInputElement | null>(null);
 
@@ -17,12 +33,14 @@ export const Date = ({ label, placeholder, placeholder2 }: Props) => {
     const inputValue = event.target.value;
     const formattedDate = formatInputDate(inputValue);
     setDateValue1(formattedDate);
+    onChange1(event);
   };
 
   const handleDateInput2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const formattedDate = formatInputDate(inputValue);
     setDateValue2(formattedDate);
+    onChange2(event);
   };
 
   const formatInputDate = (inputValue: string) => {
@@ -45,6 +63,7 @@ export const Date = ({ label, placeholder, placeholder2 }: Props) => {
           ref={inputRef1}
           className="date_input_field"
           placeholder={placeholder}
+          name={name1}
           value={dateValue1}
           onChange={handleDateInput1}
         />
@@ -52,6 +71,7 @@ export const Date = ({ label, placeholder, placeholder2 }: Props) => {
           ref={inputRef2}
           className="date_input_field"
           placeholder={placeholder2}
+          name={name2}
           value={dateValue2}
           onChange={handleDateInput2}
         />
