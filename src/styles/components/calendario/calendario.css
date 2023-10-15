@@ -58,9 +58,22 @@
   }
   
   /* Estilo para os elementos de texto quando o checkbox é marcado */
-  .habito_item.checked .title-item,
   .habito_item.checked .sub-title-item {
-    font-weight: bold; /* Torna o texto em negrito quando marcado */
+    font-weight: bold;
+    font-size: 1rem;
+    padding-left: 1rem;
+    color: rgb(0, 0, 0); /* Torna o texto em negrito quando marcado */
+  }
+
+  .title-item.title-check{
+    text-decoration: line-through;
+    font-size: 0.8rem;
+    color: #586067b9;
+    padding-left: 1rem;
+  }
+
+  .title-item.title-check .icone{
+    display: none;
   }
 
   .container-itens{
