@@ -124,42 +124,44 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
-  <div className="container-cinza-habitos">
-    {apiData.map((item, index) => (
-      <div className={`habito_item ${checkedItems[index] ? 'checked' : ''}`} key={index}>
-        <div className='container-itens'>
-          {checkedItems[index] ? (null) : (
-            <Image
-              className='icon'
-              src={`data:image/png;base64, ${item.iconeBase64}`}
-              alt="Ícone"
-              width="25"
-              height="25"
-            />
-          )}
-          <div className="text-container">
-            <p className={`title-item ${checkedItems[index] ? 'title-check' : ''}`}>{item.nome_tarefa}</p>
-            {checkedItems[index] ? (
-              <p className="sub-title-item">Completed</p>
-            ) : (
-              <p className="sub-title-item">{item.descricao}</p>
-            )}
-          </div>
-          <div className={`edit-container' ${checkedItems[index] ? 'content-check' : ''}`}>
-            <FontAwesomeIcon className='icone' icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
-            <p className='horario-item'>{item.hora_inicio}</p>
-          </div>
-          <label className="custom-checkbox">
-            <input type="checkbox" onChange={() => toggleCheckbox(index)} checked={checkedItems[index]} />
-            <span className="checkmark">
-              <FontAwesomeIcon icon={faCheck} className="verified-icon" />
-            </span>
-          </label>
+        <div className="container-cinza-habitos">
+          {apiData.map((item, index) => (
+            <div className={`habito_item ${checkedItems[index] ? 'completed' : ''}`} key={index}>
+              <div className='container-itens'>
+                {checkedItems[index] ? (null) : (
+                  <Image
+                    className='icon'
+                    src={`data:image/png;base64, ${item.iconeBase64}`}
+                    alt="Ícone"
+                    width="25"
+                    height="25"
+                  />
+                )}
+                <div className="text-container">
+                  <p className={`title-item ${checkedItems[index] ? 'title-check' : ''}`}>{item.nome_tarefa}</p>
+                  {checkedItems[index] ? (
+                    <p className="sub-title-item">Completed</p>
+                  ) : (
+                    <p className="sub-title-item">{item.descricao}</p>
+                  )}
+                </div>
+                <div className={`edit-container ${checkedItems[index] ? 'content-check' : ''}`}>
+                  {checkedItems[index] ? null : (
+                    <FontAwesomeIcon className='icone' icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
+                  )}
+                  <p className='horario-item'>{item.hora_inicio}</p>
+                </div>
+                <label className="custom-checkbox">
+                  <input type="checkbox" onChange={() => toggleCheckbox(index)} checked={checkedItems[index]} />
+                  <span className="checkmark">
+                    <FontAwesomeIcon icon={faCheck} className="verified-icon" />
+                  </span>
+                </label>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-</div>
 
     </div>
   );

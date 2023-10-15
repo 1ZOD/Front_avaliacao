@@ -192,3 +192,46 @@
 .custom-checkbox input:checked + .checkmark .verified-icon {
   display: block;
 }
+
+
+.completed {
+  background-color: #ededed;
+  position: relative;
+
+  /* Resto do seu CSS para .completed... */
+
+  .container-itens {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .sub-title-item {
+    font-weight: bold;
+    font-size: 1rem;
+    padding-left: 1rem;
+    color: rgb(0, 0, 0);
+    position: relative; /* Defina a posição como relativa para os elementos de texto */
+  }
+
+  .checkbox {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    appearance: none;
+    outline: none;
+    border: 2px solid #00000080;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute; /* Defina a posição como absoluta para o checkbox */
+    left: 0.3rem; /* Ajuste o posicionamento do checkbox */
+    top: 0.7rem; /* Ajuste o posicionamento do checkbox */
+  }
+
+  .edit-container {
+    position: absolute;
+    right: 3.3rem;
+  }
+}
+
