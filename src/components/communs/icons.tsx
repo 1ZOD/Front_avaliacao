@@ -8,9 +8,10 @@ interface Icon {
 
 interface Props {
   label: string;
+  onIconSelect: (iconName: string) => void;
 }
 
-const IconField = ({ label }: Props) => {
+const IconField = ({ label, onIconSelect }: Props) => {
   const [icons, setIcons] = useState<Icon[]>([]);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 
@@ -19,12 +20,12 @@ const IconField = ({ label }: Props) => {
       try {
         const response = await fetch("http://localhost:3001/icons");
         if (!response.ok) {
-          throw new Error("Failed to fetch icons");
+          throw new Error("Falha ao buscar ícones");
         }
         const data = await response.json();
         setIcons(data as Icon[]);
       } catch (error) {
-        console.error("Error fetching icons:", error);
+        console.error("Erro ao buscar ícones:", error);
       }
     }
 
@@ -32,7 +33,8 @@ const IconField = ({ label }: Props) => {
   }, []);
 
   const handleIconClick = (icon: Icon) => {
-    setSelectedIcon(icon.url);
+    setSelectedIcon(icon.nome);
+    onIconSelect(icon.nome);
   };
 
   return (
@@ -43,12 +45,12 @@ const IconField = ({ label }: Props) => {
           {icons.map((icon, index) => (
             <div
               key={index}
-              className={`icon-option ${icon.url === selectedIcon ? 'selected' : ''}`}
+              className={`icon-option ${icon.nome === selectedIcon ? 'selected' : ''}`}
               onClick={() => handleIconClick(icon)}
             >
               <Image
                 src={`data:image/png;base64,${icon.url}`}
-                alt="Icon"
+                alt="Ícone"
                 width={30}
                 height={30}
               />

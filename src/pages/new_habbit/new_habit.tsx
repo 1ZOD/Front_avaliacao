@@ -13,8 +13,8 @@ export default function New_habbit() {
   const [formData, setFormData] = useState({
     nome_tarefa: "",
     descricao: "",
-    status: "Concluído",
-    icone_nome: "livro",
+    status: "Aberto",
+    icone_nome: "",
     data_inicio: "",
     data_fim: "",
     hora_inicio: "",
@@ -22,6 +22,13 @@ export default function New_habbit() {
     repetir: "During a Week",
     notificacao: "no",
   });
+
+  const handleIconSelect = (iconName: any) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      icone_nome: iconName,
+    }));
+  };
 
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
@@ -78,7 +85,7 @@ export default function New_habbit() {
                   placeholder="Put a description here"
                 />
 
-                <IconField label="Habit Icons" />
+                <IconField label="Habit Icons" onIconSelect={handleIconSelect}/>
 
                 <Date
                   label="Date"
