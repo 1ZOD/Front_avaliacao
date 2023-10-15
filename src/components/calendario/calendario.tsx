@@ -76,19 +76,20 @@ function MyComponent() {
     }));
   };
 
-
   const handleCheckAll = () => {
     const allChecked = Object.values(checkedItems).every((isChecked) => isChecked);
-  
+
     if (allChecked) {
       const newCheckedItems = { ...checkedItems };
-      for (const index in apiData) {
+      for (const indexStr in apiData) {
+        const index = parseInt(indexStr, 10);
         newCheckedItems[index] = false;
       }
       setCheckedItems(newCheckedItems);
     } else {
       const newCheckedItems = { ...checkedItems };
-      for (const index in apiData) {
+      for (const indexStr in apiData) {
+        const index = parseInt(indexStr, 10);
         newCheckedItems[index] = true;
       }
       setCheckedItems(newCheckedItems);
@@ -130,6 +131,66 @@ function MyComponent() {
     setCheckedItems(initialCheckedItems);
   }, [apiData]);
 
+  const handleDeleteCheckedItems = async () => {
+    // Obtenha os IDs dos itens marcados para exclusão
+    const itemsToDelete: number[] = [];
+    for (const indexStr in checkedItems) {
+      const index = parseInt(indexStr, 10);
+      if (checkedItems[index]) {
+        itemsToDelete.push(apiData[index].id);
+      }
+    }
+  
+    // Montar o objeto de dados a ser enviado no corpo da requisição
+    let requestData;
+  
+    if (itemsToDelete.length === 1) {
+      // Se há apenas um ID a ser excluído, use um único dia e ID
+      requestData = {
+        dia: format(new Date(), 'dd/MM/yyyy'), // Use a data atual ou a data necessária
+        id: itemsToDelete[0].toString(),
+      };
+    } else if (itemsToDelete.length > 1) {
+      // Se há vários IDs a serem excluídos, use um array de dias e um array de IDs
+      const dias = itemsToDelete.map(() => format(new Date(), 'dd/MM/yyyy'));
+      requestData = {
+        dias: dias,
+        ids: itemsToDelete.map(id => id.toString()),
+      };
+    } else {
+      // Caso contrário, não há itens para excluir
+      return;
+    }
+  
+    // Envie uma solicitação DELETE para excluir os itens selecionados
+    try {
+      const response = await fetch('http://localhost:3001/excluir', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+  
+      if (response.ok) {
+        // Atualize os dados da API após a exclusão bem-sucedida
+        const updatedData = apiData.filter((item, index) => !checkedItems[index]);
+        setApiData(updatedData);
+  
+        // Limpe os itens marcados
+        const initialCheckedItems: { [key: number]: boolean } = {};
+        updatedData.forEach((_, index) => {
+          initialCheckedItems[index] = false;
+        });
+        setCheckedItems(initialCheckedItems);
+      } else {
+        console.error('Erro ao excluir os itens');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
+
   return (
     <div>
       <div className="carousel-container">
@@ -151,7 +212,8 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
-      <button onClick={handleCheckAll}>Check All</button>
+        <button onClick={handleCheckAll}>Check All</button>
+        <button onClick={handleDeleteCheckedItems}>Delete Checked Items</button>
         <div className="container-cinza-habitos">
           {apiData.map((item, index) => (
             <div className={`habito_item ${checkedItems[index] ? 'completed' : ''}`} key={index}>
@@ -190,7 +252,6 @@ function MyComponent() {
           ))}
         </div>
       </div>
-
     </div>
   );
 }
