@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-
 
 type Item = {
   date: Date;
@@ -55,6 +55,8 @@ function MyComponent() {
 
   const [activeIndex, setActiveIndex] = useState(todayIndex);
 
+  const [checkedItems, setCheckedItems] = useState<{ [key: number]: boolean }>({});
+
   const handleNext = () => {
     setActiveIndex((prevIndex) =>
       prevIndex + 1 < numDays ? prevIndex + 1 : prevIndex
@@ -65,6 +67,33 @@ function MyComponent() {
     setActiveIndex((prevIndex) =>
       prevIndex - 1 >= 0 ? prevIndex - 1 : prevIndex
     );
+  };
+
+  const toggleCheckbox = (itemIndex: number) => {
+    setCheckedItems((prevState) => ({
+      ...prevState,
+      [itemIndex]: !prevState[itemIndex],
+    }));
+  };
+
+  const handleCheckAll = () => {
+    const allChecked = Object.values(checkedItems).every((isChecked) => isChecked);
+
+    if (allChecked) {
+      const newCheckedItems = { ...checkedItems };
+      for (const indexStr in apiData) {
+        const index = parseInt(indexStr, 10);
+        newCheckedItems[index] = false;
+      }
+      setCheckedItems(newCheckedItems);
+    } else {
+      const newCheckedItems = { ...checkedItems };
+      for (const indexStr in apiData) {
+        const index = parseInt(indexStr, 10);
+        newCheckedItems[index] = true;
+      }
+      setCheckedItems(newCheckedItems);
+    }
   };
 
   const visibleItems = items.slice(activeIndex, activeIndex + itemsPerPage);
@@ -94,6 +123,74 @@ function MyComponent() {
     sendToAPI(activeIndex);
   }, [activeIndex, sendToAPI]);
 
+  useEffect(() => {
+    const initialCheckedItems: { [key: number]: boolean } = {};
+    apiData.forEach((_, index) => {
+      initialCheckedItems[index] = false;
+    });
+    setCheckedItems(initialCheckedItems);
+  }, [apiData]);
+
+  const handleDeleteCheckedItems = async () => {
+    // Obtenha os IDs dos itens marcados para exclusão
+    const itemsToDelete: number[] = [];
+    for (const indexStr in checkedItems) {
+      const index = parseInt(indexStr, 10);
+      if (checkedItems[index]) {
+        itemsToDelete.push(apiData[index].id);
+      }
+    }
+  
+    // Montar o objeto de dados a ser enviado no corpo da requisição
+    let requestData;
+  
+    if (itemsToDelete.length === 1) {
+      // Se há apenas um ID a ser excluído, use um único dia e ID
+      requestData = {
+        dia: format(new Date(), 'dd/MM/yyyy'), // Use a data atual ou a data necessária
+        id: itemsToDelete[0].toString(),
+      };
+    } else if (itemsToDelete.length > 1) {
+      // Se há vários IDs a serem excluídos, use um array de dias e um array de IDs
+      const dias = itemsToDelete.map(() => format(new Date(), 'dd/MM/yyyy'));
+      requestData = {
+        dias: dias,
+        ids: itemsToDelete.map(id => id.toString()),
+      };
+    } else {
+      // Caso contrário, não há itens para excluir
+      return;
+    }
+  
+    // Envie uma solicitação DELETE para excluir os itens selecionados
+    try {
+      const response = await fetch('http://localhost:3001/excluir', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+  
+      if (response.ok) {
+        // Atualize os dados da API após a exclusão bem-sucedida
+        const updatedData = apiData.filter((item, index) => !checkedItems[index]);
+        setApiData(updatedData);
+  
+        // Limpe os itens marcados
+        const initialCheckedItems: { [key: number]: boolean } = {};
+        updatedData.forEach((_, index) => {
+          initialCheckedItems[index] = false;
+        });
+        setCheckedItems(initialCheckedItems);
+      } else {
+        console.error('Erro ao excluir os itens');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
+
   return (
     <div>
       <div className="carousel-container">
@@ -115,33 +212,46 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
-      <div className="container-cinza-habitos">
-        {apiData.map((item, index) => (
-          <div className="habito_item" key={index}>
-            <div className='container-itens'>
-              <Image
-                className='icon'
-                src={`data:image/png;base64, ${item.iconeBase64}`}
-                alt="Ícone"
-                width="25"
-                height="25"
-              />
-              <div className='text-container'>
-                <p className='title-item'>{item.nome_tarefa}</p>
-                <p className='sub-title-item'>{item.descricao}</p>
-              </div>
-              <div className='edit-container'>
-                <FontAwesomeIcon icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
-                <p className='horario-item'>{item.hora_inicio}</p>
-              </div>
-              <div>
-                <input className="checkbox" type="checkbox"/>
+        <button onClick={handleCheckAll}>Check All</button>
+        <button onClick={handleDeleteCheckedItems}>Delete Checked Items</button>
+        <div className="container-cinza-habitos">
+          {apiData.map((item, index) => (
+            <div className={`habito_item ${checkedItems[index] ? 'completed' : ''}`} key={index}>
+              <div className='container-itens'>
+                {checkedItems[index] ? (null) : (
+                  <Image
+                    className='icon'
+                    src={`data:image/png;base64, ${item.iconeBase64}`}
+                    alt="Ícone"
+                    width="25"
+                    height="25"
+                  />
+                )}
+                <div className="text-container">
+                  <p className={`title-item ${checkedItems[index] ? 'title-check' : ''}`}>{item.nome_tarefa}</p>
+                  {checkedItems[index] ? (
+                    <p className="sub-title-item">Completed</p>
+                  ) : (
+                    <p className="sub-title-item">{item.descricao}</p>
+                  )}
+                </div>
+                <div className={`edit-container ${checkedItems[index] ? 'content-check' : ''}`}>
+                  {checkedItems[index] ? null : (
+                    <FontAwesomeIcon className='icone' icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
+                  )}
+                  <p className='horario-item'>{item.hora_inicio}</p>
+                </div>
+                <label className="custom-checkbox">
+                  <input type="checkbox" onChange={() => toggleCheckbox(index)} checked={checkedItems[index]} />
+                  <span className="checkmark">
+                    <FontAwesomeIcon icon={faCheck} className="verified-icon" />
+                  </span>
+                </label>
               </div>
             </div>
-          </div>
-    ))}
-  </div>
-</div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
