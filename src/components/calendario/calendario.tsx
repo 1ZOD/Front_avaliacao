@@ -7,7 +7,6 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
-
 type Item = {
   date: Date;
   formattedDate: {
@@ -56,6 +55,8 @@ function MyComponent() {
 
   const [activeIndex, setActiveIndex] = useState(todayIndex);
 
+  const [checkedItems, setCheckedItems] = useState<{ [key: number]: boolean }>({});
+
   const handleNext = () => {
     setActiveIndex((prevIndex) =>
       prevIndex + 1 < numDays ? prevIndex + 1 : prevIndex
@@ -66,6 +67,13 @@ function MyComponent() {
     setActiveIndex((prevIndex) =>
       prevIndex - 1 >= 0 ? prevIndex - 1 : prevIndex
     );
+  };
+
+  const toggleCheckbox = (itemIndex: number) => {
+    setCheckedItems((prevState) => ({
+      ...prevState,
+      [itemIndex]: !prevState[itemIndex],
+    }));
   };
 
   const visibleItems = items.slice(activeIndex, activeIndex + itemsPerPage);
@@ -117,35 +125,37 @@ function MyComponent() {
       </div>
       <div className="api-data">
       <div className="container-cinza-habitos">
-        {apiData.map((item, index) => (
-          <div className="habito_item" key={index}>
-            <div className='container-itens'>
-              <Image
-                className='icon'
-                src={`data:image/png;base64, ${item.iconeBase64}`}
-                alt="Ícone"
-                width="25"
-                height="25"
-              />
-              <div className='text-container'>
-                <p className='title-item'>{item.nome_tarefa}</p>
-                <p className='sub-title-item'>{item.descricao}</p>
+          {apiData.map((item, index) => (
+            <div className={`habito_item ${checkedItems[index] ? 'checked' : ''}`} key={index}>
+              <div className='container-itens'>
+                <Image
+                  className='icon'
+                  src={`data:image/png;base64, ${item.iconeBase64}`}
+                  alt="Ícone"
+                  width="25"
+                  height="25"
+                />
+                <div className="text-container">
+                  <div className="text-container">
+                    <p className="title-item">{item.nome_tarefa}</p>
+                    <p className="sub-title-item">{item.descricao}</p>
+                  </div>
+                </div>
+                <div className='edit-container'>
+                  <FontAwesomeIcon icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
+                  <p className='horario-item'>{item.hora_inicio}</p>
+                </div>
+                <label className="custom-checkbox">
+                  <input type="checkbox" onChange={() => toggleCheckbox(index)} checked={checkedItems[index]} />
+                  <span className="checkmark">
+                    <FontAwesomeIcon icon={faCheck} className="verified-icon" />
+                  </span>
+                </label>
               </div>
-              <div className='edit-container'>
-                <FontAwesomeIcon icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
-                <p className='horario-item'>{item.hora_inicio}</p>
-              </div>
-              <label className="custom-checkbox">
-                <input type="checkbox" />
-                <span className="checkmark">
-                  <FontAwesomeIcon icon={faCheck} className="verified-icon" />
-                </span>
-              </label>
             </div>
-          </div>
-    ))}
-  </div>
-</div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

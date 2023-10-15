@@ -53,6 +53,16 @@
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.055);
   }
 
+  .habito_item.checked {
+    background-color: #ededed; /* Altera o background para roxo quando marcado */
+  }
+  
+  /* Estilo para os elementos de texto quando o checkbox é marcado */
+  .habito_item.checked .title-item,
+  .habito_item.checked .sub-title-item {
+    font-weight: bold; /* Torna o texto em negrito quando marcado */
+  }
+
   .container-itens{
     display: flex;
     align-items: center;
@@ -100,7 +110,6 @@
     appearance: none;
     outline: none;
     border: 2px solid #00000080;
-    /* box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.055); */
     background-color: transparent; 
     cursor: pointer;
     margin-right: 0.5rem;
