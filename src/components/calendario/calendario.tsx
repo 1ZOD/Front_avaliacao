@@ -76,6 +76,25 @@ function MyComponent() {
     }));
   };
 
+
+  const handleCheckAll = () => {
+    const allChecked = Object.values(checkedItems).every((isChecked) => isChecked);
+  
+    if (allChecked) {
+      const newCheckedItems = { ...checkedItems };
+      for (const index in apiData) {
+        newCheckedItems[index] = false;
+      }
+      setCheckedItems(newCheckedItems);
+    } else {
+      const newCheckedItems = { ...checkedItems };
+      for (const index in apiData) {
+        newCheckedItems[index] = true;
+      }
+      setCheckedItems(newCheckedItems);
+    }
+  };
+
   const visibleItems = items.slice(activeIndex, activeIndex + itemsPerPage);
 
   const sendToAPI = useCallback(async (selectedIndex: any) => {
@@ -103,6 +122,14 @@ function MyComponent() {
     sendToAPI(activeIndex);
   }, [activeIndex, sendToAPI]);
 
+  useEffect(() => {
+    const initialCheckedItems: { [key: number]: boolean } = {};
+    apiData.forEach((_, index) => {
+      initialCheckedItems[index] = false;
+    });
+    setCheckedItems(initialCheckedItems);
+  }, [apiData]);
+
   return (
     <div>
       <div className="carousel-container">
@@ -124,6 +151,7 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
+      <button onClick={handleCheckAll}>Check All</button>
         <div className="container-cinza-habitos">
           {apiData.map((item, index) => (
             <div className={`habito_item ${checkedItems[index] ? 'completed' : ''}`} key={index}>
