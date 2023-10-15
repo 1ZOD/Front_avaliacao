@@ -6,13 +6,12 @@ interface Icon {
   nome: string;
 }
 
-interface Props{
-  label : string
+interface Props {
+  label: string;
 }
 
-const IconField = ({label}: Props) => {
+const IconField = ({ label }: Props) => {
   const [icons, setIcons] = useState<Icon[]>([]);
-
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,8 +31,8 @@ const IconField = ({label}: Props) => {
     fetchIcons();
   }, []);
 
-  const handleIconClick = (icon: string) => {
-    setSelectedIcon(icon);
+  const handleIconClick = (icon: Icon) => {
+    setSelectedIcon(icon.url);
   };
 
   return (
@@ -42,7 +41,11 @@ const IconField = ({label}: Props) => {
       <div className="habbit-container">
         <div className="icon-container">
           {icons.map((icon, index) => (
-            <div key={index} className="icon-option" onClick={() => handleIconClick(icon.url)}>
+            <div
+              key={index}
+              className={`icon-option ${icon.url === selectedIcon ? 'selected' : ''}`}
+              onClick={() => handleIconClick(icon)}
+            >
               <Image
                 src={`data:image/png;base64,${icon.url}`}
                 alt="Icon"
@@ -55,19 +58,6 @@ const IconField = ({label}: Props) => {
         </div>
         <div className="see-all">See all icons</div>
       </div>
-      {/* <div className="selected-icon">
-        {selectedIcon && (
-          <div>
-            <p>Selected Icon:</p>
-            <Image
-              src={`data:image/png;base64,${selectedIcon}`}
-              alt="Selected Icon"
-              width={100}
-              height={100}
-            />
-          </div>
-        )}
-      </div> */}
     </div>
   );
 };

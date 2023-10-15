@@ -11,8 +11,16 @@
     width: 5rem;
     padding: 0.1rem;
     border-radius: 3px;
-    transition: 0.3s linear;
+    /* transition: 0.3s linear; */
 }
+
+.icon-option.selected {
+    border: 1px solid #00000077;
+    border-radius: 3px;
+    width: 5rem;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.055);
+    cursor: pointer;
+  }
 
 .icon-option:hover{
     border: 1px solid #00000077;
