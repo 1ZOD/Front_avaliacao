@@ -26,7 +26,7 @@ export default function New_habbit() {
                 
                 <Input label={"Description"} placehloder={"Put a description here"}/>
                                 
-                <IconField/>
+                <IconField label={"Habbit Icons"}/>
                 
                 <Date label={"Date"} placeholder={"dd/mm/yyyy"} placeholder2={"End Time"}/>
 
