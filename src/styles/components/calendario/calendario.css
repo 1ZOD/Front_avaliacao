@@ -125,3 +125,48 @@
   background-color: transparent;
   border: none;
 }
+
+
+
+
+/* Estilo para o rótulo do checkbox */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Estilo para o checkbox real (ocultá-lo) */
+.custom-checkbox input {
+  display: none;
+}
+
+/* Estilo para o "checkmark" (a caixa de seleção) quando não estiver marcado */
+.checkmark {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1px solid #00000044;
+  border-radius: 50%;
+  margin-right: 10px; /* Espaço entre o checkbox e o ícone */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; /* Fundo branco por padrão */
+}
+
+/* Estilo para o "checkmark" quando estiver marcado */
+.custom-checkbox input:checked + .checkmark {
+  background-color: #7a43f0; /* Fundo roxo quando marcado */
+}
+
+/* Estilo para o ícone "verified" */
+.verified-icon {
+  font-size: 10px; /* Ajuste o tamanho do ícone conforme necessário */
+  color: #fff; /* Cor branca */
+  display: none;
+}
+
+/* Estilize o ícone "verified" quando o checkbox estiver marcado */
+.custom-checkbox input:checked + .checkmark .verified-icon {
+  display: block;
+}

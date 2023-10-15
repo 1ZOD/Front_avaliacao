@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
 
@@ -134,9 +135,12 @@ function MyComponent() {
                 <FontAwesomeIcon icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
                 <p className='horario-item'>{item.hora_inicio}</p>
               </div>
-              <div>
-                <input className="checkbox" type="checkbox"/>
-              </div>
+              <label className="custom-checkbox">
+                <input type="checkbox" />
+                <span className="checkmark">
+                  <FontAwesomeIcon icon={faCheck} className="verified-icon" />
+                </span>
+              </label>
             </div>
           </div>
     ))}
