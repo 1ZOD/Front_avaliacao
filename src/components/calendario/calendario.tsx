@@ -7,7 +7,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 type Item = {
   date: Date;
@@ -60,6 +60,9 @@ function MyComponent() {
 
   const [checkedItems, setCheckedItems] = useState<{ [key: number]: boolean }>({});
 
+  const [totalDays, setTotalDays] = useState(0);
+  const [completedDays, setCompletedDays] = useState(0);
+
   const handleNext = () => {
     setActiveIndex((prevIndex) =>
       prevIndex + 1 < numDays ? prevIndex + 1 : prevIndex
@@ -77,7 +80,7 @@ function MyComponent() {
       ...prevState,
       [itemIndex]: !prevState[itemIndex],
     }));
-  
+
     const status = checkedItems[itemIndex] ? 'Aberto' : 'concluido';
     const itemId = apiData[itemIndex].id;
     try {
@@ -92,7 +95,6 @@ function MyComponent() {
       console.error('Erro:', error);
     }
   };
-  
 
   const handleEditItem = (index: number) => {
     if (apiData[index]) {
@@ -144,8 +146,32 @@ function MyComponent() {
     }
   }, [items]);
 
+  const updateCompletedDays = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:3001/contagem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: items[activeIndex].formattedDate.complete }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setTotalDays(data.totalTarefas);
+        setCompletedDays(data.tarefasConcluidas);
+      } else {
+        console.error('Erro ao buscar dados de contagem');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  }, [items, activeIndex]);
+
   useEffect(() => {
     sendToAPI(activeIndex);
+    updateCompletedDays();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, sendToAPI]);
 
   useEffect(() => {
@@ -166,7 +192,7 @@ function MyComponent() {
     }
 
     let requestData;
-  
+
     if (itemsToDelete.length === 1) {
       requestData = {
         dia: format(new Date(), 'dd/MM/yyyy'),
@@ -189,16 +215,17 @@ function MyComponent() {
         },
         body: JSON.stringify(requestData),
       });
-  
+
       if (response.ok) {
         const updatedData = apiData.filter((item, index) => !checkedItems[index]);
         setApiData(updatedData);
-  
+
         const initialCheckedItems: { [key: number]: boolean } = {};
         updatedData.forEach((_, index) => {
           initialCheckedItems[index] = false;
         });
         setCheckedItems(initialCheckedItems);
+        updateCompletedDays(); // Atualize a contagem após a exclusão.
       } else {
         console.error('Erro ao excluir os itens');
       }
@@ -229,8 +256,15 @@ function MyComponent() {
       </div>
       <div className="api-data">
         <div className='container-mark-top'>
-          <button className="mark-completed" onClick={handleCheckAll}><FontAwesomeIcon icon={faCheck}/> Mark as completed</button>
-          <button className="mark-completed" onClick={handleDeleteCheckedItems}><FontAwesomeIcon icon={faXmark}/> Delete Checked Items</button>
+          <button className="mark-completed" onClick={handleCheckAll}>
+            <FontAwesomeIcon icon={faCheck}/> Mark as completed
+          </button>
+          <button className="mark-completed" onClick={handleDeleteCheckedItems}>
+            <FontAwesomeIcon icon={faXmark}/> Delete Checked Items
+          </button>
+            <span className="days-count">
+            {completedDays}/{totalDays} completed
+            </span>
         </div>
         <div className="container-cinza-habitos">
           {apiData.map((item, index) => (
