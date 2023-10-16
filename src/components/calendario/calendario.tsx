@@ -107,25 +107,44 @@ function MyComponent() {
     }
   };
 
-  const handleCheckAll = () => {
+  const handleCheckAll = async () => {
     const allChecked = Object.values(checkedItems).every((isChecked) => isChecked);
-    
-    if (allChecked) {
-      const newCheckedItems = { ...checkedItems };
-      for (const indexStr in apiData) {
-        const index = parseInt(indexStr, 10);
-        newCheckedItems[index] = false;
+    const newStatus = allChecked ? 'Aberto' : 'concluido';
+  
+    // Crie um array de promessas para todas as atualizações de status
+    const updatePromises = apiData.map(async (item, index) => {
+      if (checkedItems[index] !== (newStatus === 'concluido')) {
+        try {
+          const response = await fetch(`http://localhost:3001/concluir_habito/${item.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: newStatus }),
+          });
+          if (response.ok) {
+            // Atualize o estado local para refletir o novo status
+            const updatedApiData = [...apiData];
+            updatedApiData[index] = { ...item, status: newStatus };
+            setApiData(updatedApiData);
+            // Atualize o estado local dos itens marcados
+            const newCheckedItems = { ...checkedItems };
+            newCheckedItems[index] = newStatus === 'concluido';
+            setCheckedItems(newCheckedItems);
+          } else {
+            console.error('Erro ao atualizar o status');
+          }
+        } catch (error) {
+          console.error('Erro:', error);
+        }
       }
-      setCheckedItems(newCheckedItems);
-      updateCompletedDays();
-    } else {
-      const newCheckedItems = { ...checkedItems };
-      for (const indexStr in apiData) {
-        const index = parseInt(indexStr, 10);
-        newCheckedItems[index] = true;
-      }
-      setCheckedItems(newCheckedItems);
-    }
+    });
+  
+    // Aguarde todas as promessas serem resolvidas
+    await Promise.all(updatePromises);
+  
+    // Atualize o contador de dias completos
+    updateCompletedDays();
   };
 
   const visibleItems = items.slice(activeIndex, activeIndex + itemsPerPage);
