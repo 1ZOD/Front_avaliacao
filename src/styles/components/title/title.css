@@ -1,4 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
+
 .title{
-    font-weight: bold;
+    font-family: Roboto, sans-serif;
+    font-weight: 900;
     font-size: 2rem;
 }

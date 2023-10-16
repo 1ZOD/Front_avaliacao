@@ -72,6 +72,12 @@
     padding-left: 1rem;
   }
 
+  .icone-edit{
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+  }
+  
   .title-item.title-check .icone{
     display: none;
   }
@@ -235,3 +241,23 @@
   }
 }
 
+.container-mark-top{
+  display: flex;
+  column-gap: 2rem;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.mark-completed{
+  border: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  color: #485159;
+}
+
+.mark-completed:hover{
+  border: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  color: #000000;
+}
