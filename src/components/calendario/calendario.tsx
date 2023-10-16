@@ -5,7 +5,9 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
+import { useRouter } from 'next/router'
 
 type Item = {
   date: Date;
@@ -28,6 +30,7 @@ function MyComponent() {
   const numDays = 100;
   const itemsPerPage = 10;
   const daysBefore = 5;
+  const router = useRouter();
 
   const [apiData, setApiData] = useState<ApiDataItem[]>([]);
 
@@ -74,6 +77,13 @@ function MyComponent() {
       ...prevState,
       [itemIndex]: !prevState[itemIndex],
     }));
+  };
+
+  const handleEditItem = (index: number) => {
+    if (apiData[index]) {
+      const itemId = apiData[index].id;
+      router.push(`/new_habbit/${itemId}`);
+    }
   };
 
   const handleCheckAll = () => {
@@ -169,7 +179,6 @@ function MyComponent() {
         const updatedData = apiData.filter((item, index) => !checkedItems[index]);
         setApiData(updatedData);
   
-        // Limpe os itens marcados
         const initialCheckedItems: { [key: number]: boolean } = {};
         updatedData.forEach((_, index) => {
           initialCheckedItems[index] = false;
@@ -204,8 +213,10 @@ function MyComponent() {
         </button>
       </div>
       <div className="api-data">
-        <button onClick={handleCheckAll}>Check All</button>
-        <button onClick={handleDeleteCheckedItems}>Delete Checked Items</button>
+        <div className='container-mark-top'>
+          <button className="mark-completed" onClick={handleCheckAll}><FontAwesomeIcon icon={faCheck}/> Mark as completed</button>
+          <button className="mark-completed" onClick={handleDeleteCheckedItems}><FontAwesomeIcon icon={faXmark}/> Delete Checked Items</button>
+        </div>
         <div className="container-cinza-habitos">
           {apiData.map((item, index) => (
             <div className={`habito_item ${checkedItems[index] ? 'completed' : ''}`} key={index}>
@@ -229,7 +240,9 @@ function MyComponent() {
                 </div>
                 <div className={`edit-container ${checkedItems[index] ? 'content-check' : ''}`}>
                   {checkedItems[index] ? null : (
-                    <FontAwesomeIcon className='icone' icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
+                    <button className='icone-edit' onClick={() => handleEditItem(index)}>
+                      <FontAwesomeIcon icon={faPenToSquare} size="sm" style={{ color: '#a1a1aa' }} />
+                    </button>
                   )}
                   <p className='horario-item'>{item.hora_inicio}</p>
                 </div>
