@@ -8,8 +8,12 @@ import '@/styles/components/date/date.css';
 import '@/styles/components/time/time.css';
 import '@/styles/components/icon/icons.css';
 import '@/styles/components/calendario/calendario.css';
+import '@/styles/components/home/home_title.css';
+import '@/styles/components/home/home_content.css';
 import '@/styles/pages/daily_habits.css'
 import '@/styles/pages/new_habbits.css'
+
+
 
 import type { AppProps } from 'next/app'
 import { Navbar } from '@/components/navbar/Navbar';
