@@ -7,6 +7,8 @@ import { Time } from "@/components/communs/time";
 import { Dropdown } from "@/components/communs/dropdown";
 import { Date } from "@/components/communs/date";
 import Input from "@/components/communs/input";
+import Swal from 'sweetalert2';
+import router, { useRouter } from 'next/router';
 
 
 export default function New_habbit() {
@@ -51,13 +53,25 @@ export default function New_habbit() {
       });
 
       if (response.ok) {
-        // O envio foi bem-sucedido, você pode lidar com a resposta ou redirecionar para outra página, se necessário.
-        console.log("Habit cadastrado com sucesso!");
+          router.push('/daily_habits/daily_habits');
+          Swal.fire(
+            'Success!',
+            'Habit registered successfully!',
+            'success'
+          );
       } else {
-        console.error("Falha ao cadastrar o hábito.");
+        Swal.fire(
+          'Error!',
+          'Failed to register the habit.',
+          'error'
+        );
       }
-    } catch (error) {
-      console.error("Erro ao enviar o formulário:", error);
+    } catch (error:any) {
+      Swal.fire(
+        'Erro!',
+        'Erro ao enviar o formulário: ' + error.message,
+        'error'
+      );
     }
   };
 
@@ -65,7 +79,7 @@ export default function New_habbit() {
     <>
       <div className="main-container">
         <div className="content-container">
-          <Title>New Habbit</Title>
+          <Title>New Habit</Title>
           <div>
             <form onSubmit={handleSubmit}>
               <div className="form-container">
