@@ -81,6 +81,7 @@ function MyComponent() {
       [itemIndex]: !prevState[itemIndex],
     }));
 
+    
     const status = checkedItems[itemIndex] ? 'Aberto' : 'concluido';
     const itemId = apiData[itemIndex].id;
     try {
@@ -94,6 +95,7 @@ function MyComponent() {
     } catch (error) {
       console.error('Erro:', error);
     }
+    updateCompletedDays()
   };
 
   const handleEditItem = (index: number) => {
@@ -105,7 +107,7 @@ function MyComponent() {
 
   const handleCheckAll = () => {
     const allChecked = Object.values(checkedItems).every((isChecked) => isChecked);
-
+    
     if (allChecked) {
       const newCheckedItems = { ...checkedItems };
       for (const indexStr in apiData) {
@@ -113,6 +115,7 @@ function MyComponent() {
         newCheckedItems[index] = false;
       }
       setCheckedItems(newCheckedItems);
+      updateCompletedDays();
     } else {
       const newCheckedItems = { ...checkedItems };
       for (const indexStr in apiData) {
@@ -191,8 +194,9 @@ function MyComponent() {
       }
     }
 
+    
     let requestData;
-
+    
     if (itemsToDelete.length === 1) {
       requestData = {
         dia: format(new Date(), 'dd/MM/yyyy'),
@@ -215,17 +219,17 @@ function MyComponent() {
         },
         body: JSON.stringify(requestData),
       });
-
+      
       if (response.ok) {
         const updatedData = apiData.filter((item, index) => !checkedItems[index]);
         setApiData(updatedData);
-
+        
         const initialCheckedItems: { [key: number]: boolean } = {};
         updatedData.forEach((_, index) => {
           initialCheckedItems[index] = false;
         });
         setCheckedItems(initialCheckedItems);
-        updateCompletedDays(); // Atualize a contagem após a exclusão.
+        updateCompletedDays();
       } else {
         console.error('Erro ao excluir os itens');
       }
@@ -233,7 +237,7 @@ function MyComponent() {
       console.error('Erro:', error);
     }
   };
-
+  
   return (
     <div>
       <div className="carousel-container">
