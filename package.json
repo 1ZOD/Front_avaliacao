@@ -19,7 +19,8 @@
     "react": "^18",
     "react-calendar": "^4.6.0",
     "react-dom": "^18",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.11.0",
+    "sweetalert2": "^11.7.32"
   },
   "devDependencies": {
     "@types/inputmask": "^5.0.4",

@@ -132,7 +132,6 @@ function MyComponent() {
   }, [apiData]);
 
   const handleDeleteCheckedItems = async () => {
-    // Obtenha os IDs dos itens marcados para exclusão
     const itemsToDelete: number[] = [];
     for (const indexStr in checkedItems) {
       const index = parseInt(indexStr, 10);
@@ -140,29 +139,23 @@ function MyComponent() {
         itemsToDelete.push(apiData[index].id);
       }
     }
-  
-    // Montar o objeto de dados a ser enviado no corpo da requisição
+
     let requestData;
   
     if (itemsToDelete.length === 1) {
-      // Se há apenas um ID a ser excluído, use um único dia e ID
       requestData = {
-        dia: format(new Date(), 'dd/MM/yyyy'), // Use a data atual ou a data necessária
+        dia: format(new Date(), 'dd/MM/yyyy'),
         id: itemsToDelete[0].toString(),
       };
     } else if (itemsToDelete.length > 1) {
-      // Se há vários IDs a serem excluídos, use um array de dias e um array de IDs
       const dias = itemsToDelete.map(() => format(new Date(), 'dd/MM/yyyy'));
       requestData = {
         dias: dias,
         ids: itemsToDelete.map(id => id.toString()),
       };
     } else {
-      // Caso contrário, não há itens para excluir
       return;
     }
-  
-    // Envie uma solicitação DELETE para excluir os itens selecionados
     try {
       const response = await fetch('http://localhost:3001/excluir', {
         method: 'POST',
@@ -173,7 +166,6 @@ function MyComponent() {
       });
   
       if (response.ok) {
-        // Atualize os dados da API após a exclusão bem-sucedida
         const updatedData = apiData.filter((item, index) => !checkedItems[index]);
         setApiData(updatedData);
   
