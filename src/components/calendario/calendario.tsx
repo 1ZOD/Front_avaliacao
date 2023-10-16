@@ -78,7 +78,7 @@ function MyComponent() {
       [itemIndex]: !prevState[itemIndex],
     }));
   
-    const status = checkedItems[itemIndex] ? 'aberto' : 'concluido';
+    const status = checkedItems[itemIndex] ? 'Aberto' : 'concluido';
     const itemId = apiData[itemIndex].id;
     try {
       const response = await fetch(`http://localhost:3001/concluir_habito/${itemId}`, {
