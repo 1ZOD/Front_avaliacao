@@ -72,12 +72,27 @@ function MyComponent() {
     );
   };
 
-  const toggleCheckbox = (itemIndex: number) => {
+  const toggleCheckbox = async (itemIndex: number) => {
     setCheckedItems((prevState) => ({
       ...prevState,
       [itemIndex]: !prevState[itemIndex],
     }));
+  
+    const status = checkedItems[itemIndex] ? 'aberto' : 'concluido';
+    const itemId = apiData[itemIndex].id;
+    try {
+      const response = await fetch(`http://localhost:3001/concluir_habito/${itemId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      });
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   };
+  
 
   const handleEditItem = (index: number) => {
     if (apiData[index]) {
