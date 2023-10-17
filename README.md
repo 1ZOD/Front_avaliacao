@@ -24,8 +24,14 @@ npm i
 npm run dev
 ```
 
-Porta de acesso 
+## Porta de acesso 
 ```sh
 http://localhost:3000
 ```
+
+## Dificuldades e impedimentos
+### Primeira vez utilizando o framework
+### Pouca componentização na pagina de "Calendario"
+
+
 
