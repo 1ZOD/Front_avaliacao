@@ -14,7 +14,6 @@ export default function New_habit() {
   const [formData, setFormData] = useState({
     nome_tarefa: "",
     descricao: "",
-    status: "Aberto",
     icone_nome: "",
     data_inicio: "",
     data_fim: "",
@@ -22,14 +21,13 @@ export default function New_habit() {
     hora_fim: "",
     repetir: "During a Week",
     notificacao: "no",
+    status: "Aberto",
   });
 
   const router = useRouter();
   const { id } = router.query; // Pega o valor do parâmetro "id" da URL
 
   useEffect(() => {
-    if (id) {
-      // Se "id" estiver presente na URL, é uma página de edição, então você pode buscar os dados do hábito com esse "id" e preencher o formulário.
       const fetchData = async () => {
         try {
           const response = await fetch(`http://localhost:3001/get_habit/${id}`);
@@ -40,13 +38,13 @@ export default function New_habit() {
                 nome_tarefa: habitData.nome_tarefa,
                 descricao: habitData.descricao,
                 icone_nome: habitData.icone_nome,
-                status: habitData.status,
                 data_inicio: habitData.data_inicio,
                 data_fim: habitData.data_fim,
                 hora_inicio: habitData.hora_inicio,
                 hora_fim: habitData.hora_fim,
                 repetir: habitData.repetir,
                 notificacao: habitData.notificacao,
+                status: habitData.status,
             });
           } else {
             Swal.fire('Error!', 'Failed to fetch habit data.', 'error');
@@ -56,7 +54,6 @@ export default function New_habit() {
         }
       };
       fetchData();
-    }
   }, [id]);
 
   const handleIconSelect = (iconName: any) => {
@@ -76,22 +73,25 @@ export default function New_habit() {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
+  
     try {
-        const response = await fetch(`http://localhost:3001/habit/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          router.push(`/daily_habits/daily_habits`);
-          Swal.fire('Success!', 'Habit updated successfully!', 'success');
-        } else {
-          Swal.fire('Error!', 'Failed to update the habit.', 'error');
-        }
+      const response = await fetch(`http://localhost:3001/habit`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          id: id, // Adicione o ID ao corpo da solicitação
+        }),
+      });
+      console.log(formData);
+      if (response.ok) {
+        router.push(`/daily_habits/daily_habits`);
+        Swal.fire('Success!', 'Habit updated successfully!', 'success');
+      } else {
+        Swal.fire('Error!', 'Failed to update the habit.', 'error');
+      }
     } catch (error:any) {
       Swal.fire('Erro!', 'Erro ao enviar o formulário: ' + error.message, 'error');
     }
