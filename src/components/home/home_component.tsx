@@ -10,16 +10,16 @@ export const HomePageContent = () => {
 
   return (
     <div className="main-container-content">
-      <div>
+      <div className="container">
         <div className="container-esquerdo">
             <span className="title-esquerdo">Follow your Habits</span>
             <div className="content-esquerdo">Grafico</div>
         </div>
                 <span>All habits</span>
       </div>
-      <div>
+      <div className="container">
         <div className="container-direito">
-          <span className="title-esquerdo">Top 3 Habits</span>
+          <div className="title-esquerdo">Top 3 Habits</div>
           <div className="grid-3">
             <span className="firt-content">Drink Water</span>
             <div className="grid-2-itens">
@@ -32,7 +32,7 @@ export const HomePageContent = () => {
             </div>
           </div>
         </div>
-                <span>+ New habit</span>
+          <span>+ New habit</span>
       </div>
     </div>
   );
