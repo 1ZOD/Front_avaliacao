@@ -16,6 +16,10 @@ cd front
 ```
 ```sh
 npm run dev
-``` 
+```
 
+Porta de acesso 
+```sh
+http://localhost:3000
+```
 
