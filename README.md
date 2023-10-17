@@ -1,5 +1,8 @@
 # FrontEnd-Universal
 
+## Descrição
+O projeto envolve a criação de um calendário que permite aos usuários adicionar tarefas em datas específicas. Além disso, oferece funcionalidades que permitem a exclusão, modificação e remoção das tarefas já inseridas.
+
 ## 1° Passo
 
 Ter o Node instalado em sua maquina
