@@ -32,6 +32,8 @@ http://localhost:3000
 ## Dificuldades e impedimentos
 ### Primeira vez utilizando o framework
 ### Pouca componentização na pagina de "Calendario"
+### A tela de home não foi finalizada por falta de tempo 
+### Existe um bug ao clicar em "Mark ALL" que não foi corrigido
 
 
 
