@@ -207,44 +207,23 @@ function MyComponent() {
   }, [apiData]);
 
   const handleDeleteCheckedItems = async () => {
-    const itemsToDelete: number[] = [];
-    for (const indexStr in checkedItems) {
-      const index = parseInt(indexStr, 10);
-      if (checkedItems[index]) {
-        itemsToDelete.push(apiData[index].id);
-      }
-    }
-
-    
-    let requestData;
-    
-    if (itemsToDelete.length === 1) {
-      requestData = {
-        dia: format(new Date(), 'dd/MM/yyyy'),
-        id: itemsToDelete[0].toString(),
-      };
-    } else if (itemsToDelete.length > 1) {
-      const dias = itemsToDelete.map(() => format(new Date(), 'dd/MM/yyyy'));
-      requestData = {
-        dias: dias,
-        ids: itemsToDelete.map(id => id.toString()),
-      };
-    } else {
-      return;
-    }
+    const requestData = {
+      dia: items[activeIndex].formattedDate.complete,
+    };
+  
     try {
-      const response = await fetch('http://localhost:3001/excluir', {
+      const response = await fetch('http://localhost:3001/excluir-concluidas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData),
       });
-      
+  
       if (response.ok) {
         const updatedData = apiData.filter((item, index) => !checkedItems[index]);
         setApiData(updatedData);
-        
+  
         const initialCheckedItems: { [key: number]: boolean } = {};
         updatedData.forEach((_, index) => {
           initialCheckedItems[index] = false;
