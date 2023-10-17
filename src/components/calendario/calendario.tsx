@@ -281,15 +281,17 @@ function MyComponent() {
       </div>
       <div className="api-data">
         <div className='container-mark-top'>
-          <button className="mark-completed" onClick={handleCheckAll}>
-            <FontAwesomeIcon icon={faCheck}/> Mark as completed
-          </button>
-          <button className="mark-completed" onClick={handleDeleteCheckedItems}>
-            <FontAwesomeIcon icon={faXmark}/> Delete Checked Items
-          </button>
-            <span className="days-count">
+          <div className='container-subitle'>
+            <button className="mark-completed" onClick={handleCheckAll}>
+              <FontAwesomeIcon icon={faCheck}/> Mark as completed
+            </button>
+            <button className="mark-completed" onClick={handleDeleteCheckedItems}>
+              <FontAwesomeIcon icon={faXmark}/> Delete Checked Items
+            </button>
+          </div>
+          <div className="days-count">
             {completedDays}/{totalDays} completed
-            </span>
+          </div>
         </div>
         <div className="container-cinza-habitos">
         {apiData.map((item, index) => (

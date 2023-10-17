@@ -12,11 +12,10 @@ export const HomePageContent = () => {
     <div className="main-container-content">
         <div className="container-esquerdo">
             <span className="title-esquerdo">Follow your Habits</span>
-            <div className="content-esquerdo">spaaaa</div>
+            <div className="content-esquerdo">Grafico</div>
         </div>
         <div className="container-direito">
             <div></div>
-            <span>spaaaaaa</span>
         </div>
     </div>
   );
