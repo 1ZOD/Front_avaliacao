@@ -11,7 +11,6 @@
     width: 5rem;
     padding: 0.1rem;
     border-radius: 3px;
-    /* transition: 0.3s linear; */
 }
 
 .icon-option.selected {
@@ -49,7 +48,6 @@
     padding: 0.5rem;
     align-items: flex-end;
     color: #586067b7;
-    /* font-weight: bold; */
     margin-right: 3rem;
     cursor: pointer;
 }

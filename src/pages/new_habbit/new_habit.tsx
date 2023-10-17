@@ -127,18 +127,18 @@ export default function New_habbit() {
 
                 <Dropdown
                   label="Repeat"
-                  name="repetir" // Adicione o nome da chave correspondente no seu estado
-                  value={formData.repetir} // Passe o valor do seu estado
-                  onChange={handleChange} // Passe a função de atualização do seu estado
+                  name="repetir"
+                  value={formData.repetir}
+                  onChange={handleChange}
                   options={["During a Week", "During a Day", "Never"]}
                 />
 
 
                 <Dropdown
                   label="Notification"
-                  name="notification" // Adicione o nome da chave correspondente no seu estado
-                  value={formData.notificacao} // Passe o valor do seu estado
-                  onChange={handleChange} // Passe a função de atualização do seu estado
+                  name="notification" 
+                  value={formData.notificacao}
+                  onChange={handleChange}
                   options={["Yes", "No"]}
                 />
 

@@ -54,15 +54,14 @@
   }
 
   .habito_item.checked {
-    background-color: #ededed; /* Altera o background para roxo quando marcado */
+    background-color: #ededed;
   }
   
-  /* Estilo para os elementos de texto quando o checkbox é marcado */
   .habito_item.checked .sub-title-item {
     font-weight: bold;
     font-size: 1rem;
     padding-left: 1rem;
-    color: rgb(0, 0, 0); /* Torna o texto em negrito quando marcado */
+    color: rgb(0, 0, 0);
   }
 
   .title-item.title-check{
@@ -96,7 +95,6 @@
   .text-container{
     display: flex;
     flex-direction: column;
-    /* background-color: red; */
     width: 10rem;
   }
 
@@ -142,9 +140,9 @@
   }
 
   .selection-icon {
-    margin-right: 1rem; /* Espaçamento à direita do ícone de seleção */
-    font-size: 1.5rem; /* Tamanho do ícone de seleção */
-    color: #007bff; /* Cor do ícone de seleção */
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    color: #007bff;
   }
   
 .button_arrow{
@@ -155,46 +153,43 @@
 }
 
 
-
-
-/* Estilo para o rótulo do checkbox */
 .custom-checkbox {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-/* Estilo para o checkbox real (ocultá-lo) */
+
 .custom-checkbox input {
   display: none;
 }
 
-/* Estilo para o "checkmark" (a caixa de seleção) quando não estiver marcado */
+
 .checkmark {
   width: 1.1rem;
   height: 1.1rem;
   border: 1px solid #00000044;
   border-radius: 50%;
-  margin-right: 10px; /* Espaço entre o checkbox e o ícone */
+  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff; /* Fundo branco por padrão */
+  background-color: #fff;
 }
 
-/* Estilo para o "checkmark" quando estiver marcado */
+
 .custom-checkbox input:checked + .checkmark {
-  background-color: #7a43f0; /* Fundo roxo quando marcado */
+  background-color: #7a43f0;
 }
 
-/* Estilo para o ícone "verified" */
+
 .verified-icon {
-  font-size: 10px; /* Ajuste o tamanho do ícone conforme necessário */
-  color: #fff; /* Cor branca */
+  font-size: 10px;
+  color: #fff;
   display: none;
 }
 
-/* Estilize o ícone "verified" quando o checkbox estiver marcado */
+
 .custom-checkbox input:checked + .checkmark .verified-icon {
   display: block;
 }
@@ -203,8 +198,6 @@
 .completed {
   background-color: #ededed;
   position: relative;
-
-  /* Resto do seu CSS para .completed... */
 
   .container-itens {
     display: flex;
@@ -218,7 +211,7 @@
     font-size: 1rem;
     padding-left: 1rem;
     color: rgb(0, 0, 0);
-    position: relative; /* Defina a posição como relativa para os elementos de texto */
+    position: relative;
   }
 
   .checkbox {
@@ -230,9 +223,9 @@
     border: 2px solid #00000080;
     background-color: transparent;
     cursor: pointer;
-    position: absolute; /* Defina a posição como absoluta para o checkbox */
-    left: 0.3rem; /* Ajuste o posicionamento do checkbox */
-    top: 0.7rem; /* Ajuste o posicionamento do checkbox */
+    position: absolute;
+    left: 0.3rem;
+    top: 0.7rem;
   }
 
   .edit-container {

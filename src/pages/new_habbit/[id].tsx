@@ -25,7 +25,7 @@ export default function New_habit() {
   });
 
   const router = useRouter();
-  const { id } = router.query; // Pega o valor do parâmetro "id" da URL
+  const { id } = router.query;
 
   useEffect(() => {
       const fetchData = async () => {
@@ -33,7 +33,6 @@ export default function New_habit() {
           const response = await fetch(`http://localhost:3001/get_habit/${id}`);
           if (response.ok) {
             const habitData = await response.json();
-            // Atualize o estado "formData" com os dados obtidos da API.
             setFormData({
                 nome_tarefa: habitData.nome_tarefa,
                 descricao: habitData.descricao,
@@ -82,7 +81,7 @@ export default function New_habit() {
         },
         body: JSON.stringify({
           ...formData,
-          id: id, // Adicione o ID ao corpo da solicitação
+          id: id,
         }),
       });
       console.log(formData);
@@ -109,7 +108,7 @@ export default function New_habit() {
                 name="nome_tarefa"
                 value={formData.nome_tarefa}
                 onChange={handleChange}
-                placeholder="Insira o nome do hábito aqui"
+                placeholder="Put a habit name here"
               />
 
               <Input
@@ -117,7 +116,7 @@ export default function New_habit() {
                 name="descricao"
                 value={formData.descricao}
                 onChange={handleChange}
-                placeholder="Insira uma descrição aqui"
+                placeholder="Put a description here"
               />
 
               <IconField label="Ícones de Hábito" onIconSelect={handleIconSelect} />
@@ -131,7 +130,7 @@ export default function New_habit() {
                 value2={formData.data_fim}
                 onChange2={handleChange}
                 placeholder="dd/mm/yyyy"
-                placeholder2="Data de Término"
+                placeholder2="End Time"
               />
 
               <Time
@@ -143,7 +142,7 @@ export default function New_habit() {
                 value2={formData.hora_fim}
                 onChange2={handleChange}
                 placeholder="hh:mm"
-                placeholder2="Hora de Término"
+                placeholder2="End Time"
               />
 
               <Dropdown
@@ -151,7 +150,7 @@ export default function New_habit() {
                 name="repetir"
                 value={formData.repetir}
                 onChange={handleChange}
-                options={["Durante uma Semana", "Durante um Dia", "Nunca"]}
+                options={["During a Week", "During a Day", "Never"]}
               />
 
               <Dropdown
@@ -159,7 +158,7 @@ export default function New_habit() {
                 name="notificacao"
                 value={formData.notificacao}
                 onChange={handleChange}
-                options={["Sim", "Não"]}
+                options={["Yes", "No"]}
               />
 
               <div className="container_button">

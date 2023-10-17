@@ -24,15 +24,12 @@ export const Dropdown = ({ label, name, value, onChange, options }: Props) => {
     setSelectedOption(option);
     setIsOpen(false);
 
-    // Crie um evento do tipo ChangeEvent manualmente
     const event = {
       target: {
         name: name,
         value: option,
       },
     } as React.ChangeEvent<HTMLInputElement>;
-
-    // Chame a função de atualização do estado com o evento criado
     onChange(event);
   };
 

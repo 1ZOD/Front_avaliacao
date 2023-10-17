@@ -77,11 +77,10 @@ function MyComponent() {
   };
 
   const toggleCheckbox = async (itemIndex: number) => {
-    const updatedApiData = [...apiData]; // Crie uma cópia do array de dados da API.
+    const updatedApiData = [...apiData];
     const item = updatedApiData[itemIndex];
-    const newStatus = item.status === 'concluido' ? 'Aberto' : 'concluido'; // Inverta o status.
+    const newStatus = item.status === 'concluido' ? 'Aberto' : 'concluido';
   
-    // Atualize o status no array de dados da API e no estado local.
     updatedApiData[itemIndex] = { ...item, status: newStatus };
     setApiData(updatedApiData);
   
@@ -111,7 +110,6 @@ function MyComponent() {
     const allChecked = Object.values(checkedItems).every((isChecked) => isChecked);
     const newStatus = allChecked ? 'Aberto' : 'concluido';
   
-    // Crie um array de promessas para todas as atualizações de status
     const updatePromises = apiData.map(async (item, index) => {
       if (checkedItems[index] !== (newStatus === 'concluido')) {
         try {
@@ -123,11 +121,9 @@ function MyComponent() {
             body: JSON.stringify({ status: newStatus }),
           });
           if (response.ok) {
-            // Atualize o estado local para refletir o novo status
             const updatedApiData = [...apiData];
             updatedApiData[index] = { ...item, status: newStatus };
             setApiData(updatedApiData);
-            // Atualize o estado local dos itens marcados
             const newCheckedItems = { ...checkedItems };
             newCheckedItems[index] = newStatus === 'concluido';
             setCheckedItems(newCheckedItems);
@@ -140,10 +136,7 @@ function MyComponent() {
       }
     });
   
-    // Aguarde todas as promessas serem resolvidas
     await Promise.all(updatePromises);
-  
-    // Atualize o contador de dias completos
     updateCompletedDays();
   };
 
@@ -208,7 +201,7 @@ function MyComponent() {
 
   const handleDeleteCheckedItems = async () => {
     const requestData = {
-      dia: items[activeIndex].formattedDate.complete, // Usar a data da posição ativa do carrossel
+      dia: items[activeIndex].formattedDate.complete,
     };
   
     try {
@@ -231,8 +224,6 @@ function MyComponent() {
         setCheckedItems(initialCheckedItems);
         
         updateCompletedDays();
-        
-        // Após excluir os itens, chame a API para obter os itens atualizados
         sendToAPI(activeIndex);
       } else {
         console.error('Erro ao excluir os itens');

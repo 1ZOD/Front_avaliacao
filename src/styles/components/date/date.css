@@ -7,7 +7,7 @@
     font-weight: bold;
     font-size: 1rem;
     color: #586067;
-    margin-bottom: 0.2rem; /* Adiciona um pequeno espaço entre o label e os campos de entrada */
+    margin-bottom: 0.2rem;
   }
   
   .container_date {
@@ -27,6 +27,4 @@
     padding: 1rem;
     outline: none;
   }
-  
-  /* ...outros estilos... */
   
