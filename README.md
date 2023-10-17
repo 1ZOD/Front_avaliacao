@@ -15,6 +15,9 @@ Dentro a pasta do projeto
 cd front
 ```
 ```sh
+npm i
+```
+```sh
 npm run dev
 ```
 
