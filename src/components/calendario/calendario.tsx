@@ -208,7 +208,7 @@ function MyComponent() {
 
   const handleDeleteCheckedItems = async () => {
     const requestData = {
-      dia: items[activeIndex].formattedDate.complete,
+      dia: items[activeIndex].formattedDate.complete, // Usar a data da posição ativa do carrossel
     };
   
     try {
@@ -229,7 +229,11 @@ function MyComponent() {
           initialCheckedItems[index] = false;
         });
         setCheckedItems(initialCheckedItems);
+        
         updateCompletedDays();
+        
+        // Após excluir os itens, chame a API para obter os itens atualizados
+        sendToAPI(activeIndex);
       } else {
         console.error('Erro ao excluir os itens');
       }
